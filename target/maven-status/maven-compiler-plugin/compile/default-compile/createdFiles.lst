@@ -1,0 +1,11 @@
+com\tiendavirtual\controlador\CatalogoControlador.class
+com\tiendavirtual\controlador\ProductoControlador.class
+com\tiendavirtual\controlador\ServletImagenes.class
+com\tiendavirtual\controlador\IndexControlador.class
+com\tiendavirtual\controlador\UsuarioControlador.class
+com\tiendavirtual\dao\UsuarioDAO.class
+com\tiendavirtual\dao\ProductoDAO.class
+com\tiendavirtual\filtros\FiltroAutenticacion.class
+com\tiendavirtual\modelo\Producto.class
+com\tiendavirtual\dao\Conexion.class
+com\tiendavirtual\modelo\Usuario.class
