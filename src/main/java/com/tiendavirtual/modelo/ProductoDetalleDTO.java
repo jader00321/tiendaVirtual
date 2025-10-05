@@ -1,26 +1,20 @@
-// Ruta: src/main/java/com/tiendavirtual/modelo/Producto.java
 package com.tiendavirtual.modelo;
 
-public class Producto {
+public class ProductoDetalleDTO {
+
     private int id;
     private String nombre;
     private String descripcion;
     private double precioVenta;
     private int stock;
     private String imagenUrl;
-    private Integer categoriaId;
+
     private double precioCosto;
-    private Integer proveedorId;
-    
-    // --- NUEVOS CAMPOS ---
-    private String codigo; // Para el código único de producto
-    private String nombreCategoria; // Para mostrar el nombre de la categoría en las vistas
+    private String nombreProveedor;
+    private String nombreCategoria;
 
-    public Producto() {
+    public ProductoDetalleDTO() {
     }
-
-    // --- GETTERS Y SETTERS ---
-    // (Incluyendo los nuevos para 'codigo' y 'nombreCategoria')
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
@@ -34,15 +28,10 @@ public class Producto {
     public void setStock(int stock) { this.stock = stock; }
     public String getImagenUrl() { return imagenUrl; }
     public void setImagenUrl(String imagenUrl) { this.imagenUrl = imagenUrl; }
-    public Integer getCategoriaId() { return categoriaId; }
-    public void setCategoriaId(Integer categoriaId) { this.categoriaId = categoriaId; }
     public double getPrecioCosto() { return precioCosto; }
     public void setPrecioCosto(double precioCosto) { this.precioCosto = precioCosto; }
-    public Integer getProveedorId() { return proveedorId; }
-    public void setProveedorId(Integer proveedorId) { this.proveedorId = proveedorId; }
-    
-    public String getCodigo() { return codigo; }
-    public void setCodigo(String codigo) { this.codigo = codigo; }
+    public String getNombreProveedor() { return nombreProveedor; }
+    public void setNombreProveedor(String nombreProveedor) { this.nombreProveedor = nombreProveedor; }
     public String getNombreCategoria() { return nombreCategoria; }
     public void setNombreCategoria(String nombreCategoria) { this.nombreCategoria = nombreCategoria; }
 }

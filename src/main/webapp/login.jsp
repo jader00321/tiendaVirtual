@@ -11,12 +11,12 @@
         <form action="${pageContext.request.contextPath}/usuario" method="post">
             <input type="hidden" name="accion" value="login">
             <div class="formulario-acceso__grupo">
-                <label for="email">Correo Electrónico</label>
-                <input type="email" id="email" name="email" required>
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input type="email" id="email" name="email" class="form-control" required>
             </div>
             <div class="formulario-acceso__grupo">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" class="form-control" required>
             </div>
             <button type="submit" class="boton boton--primario boton--bloque">Entrar</button>
         </form>
