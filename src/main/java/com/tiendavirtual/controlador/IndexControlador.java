@@ -1,4 +1,3 @@
-// Ruta: src/main/java/com/tiendavirtual/controlador/IndexControlador.java
 package com.tiendavirtual.controlador;
 
 import com.tiendavirtual.dao.CategoriaDAO;
@@ -34,17 +33,14 @@ public class IndexControlador extends HttpServlet {
             // 1. Obtiene la lista de objetos Categoria desde la base de datos.
             List<Categoria> listaCategorias = categoriaDAO.listar();
             
-            // 2. Obtiene todos los productos (ordenados por el más nuevo).
-            List<Producto> todosLosProductos = productoDAO.listar(null, null); 
+            // 2. Llama al nuevo método del DAO para obtener solo 4 productos destacados.
+            List<Producto> productosDestacados = productoDAO.listarDestacados(4); 
             
-            // 3. Selecciona hasta 4 productos para destacar en la portada.
-            List<Producto> productosDestacados = todosLosProductos.subList(0, Math.min(todosLosProductos.size(), 4));
-            
-            // 4. Envía ambas listas a la vista como atributos del request.
+            // 3. Envía ambas listas a la vista como atributos del request.
             request.setAttribute("listaCategorias", listaCategorias);
             request.setAttribute("listaProductosDestacados", productosDestacados);
 
-            // 5. Reenvía la petición a la vista JSP.
+            // 4. Reenvía la petición a la vista JSP.
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.forward(request, response);
             
