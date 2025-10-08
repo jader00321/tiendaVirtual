@@ -1,0 +1,107 @@
+/* --- Variables Globales y Reseteo --- */
+:root {
+    --color-primary: #007bff;
+    --color-secondary: #6c757d;
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+    --color-light: #f8f9fa;
+    --color-dark: #343a40;
+    --font-primary: 'Roboto', sans-serif;
+    --font-secondary: 'Lato', sans-serif;
+}
+
+body {
+    font-family: var(--font-secondary);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: var(--color-dark);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.contenedor-principal { width: 90%; max-width: 1200px; margin: 0 auto; padding: 20px 0; flex-grow: 1; }
+.titulo-pagina { text-align: center; margin-bottom: 30px; font-size: 2.5em; font-family: var(--font-primary); }
+
+/* --- Componente: Header (en inglés, como se solicitó) --- */
+.header { background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 10px 0; position: sticky; top: 0; z-index: 1000; }
+.header__container { width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.header__logo a { text-decoration: none; color: var(--color-primary); font-size: 1.8em; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+.header__logo-icon { height: 40px; }
+.header__nav ul { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; }
+.header__nav li { margin-left: 25px; }
+.header__nav a { text-decoration: none; color: var(--color-secondary); font-weight: 700; transition: color 0.3s ease; }
+.header__nav a:hover { color: var(--color-primary); }
+.header__nav a.boton { color: #fff; }
+
+/* --- Componente: Botones --- */
+.boton { display: inline-block; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; border: none; cursor: pointer; font-weight: 700; text-align: center; transition: all 0.3s ease; }
+.boton:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.boton--primario { background-color: var(--color-primary); }
+.boton--primario:hover { background-color: #0056b3; }
+.boton--secundario { background-color: var(--color-secondary); }
+.boton--secundario:hover { background-color: #5a6268; }
+.boton--exito { background-color: var(--color-success); }
+.boton--peligro { background-color: var(--color-danger); }
+.boton--advertencia { background-color: var(--color-warning); color: #333; }
+.boton--grande { font-size: 1.1em; padding: 12px 25px; }
+.boton--bloque { display: block; width: 100%; }
+
+/* --- Página: Inicio (Hero & Categorías) --- */
+.hero { background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../imagenes/hero-banner.jpg'); background-size: cover; background-position: center; color: #fff; text-align: center; padding: 100px 20px; border-radius: 8px; margin-bottom: 40px; }
+.hero__contenido h1 { font-size: 3em; margin-bottom: 10px; }
+.hero__contenido p { font-size: 1.2em; margin-bottom: 30px; }
+.categorias-destacadas { margin-top: 40px; }
+.cuadricula-categorias { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+.tarjeta-categoria { display: block; text-decoration: none; color: inherit; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: relative; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.tarjeta-categoria:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.12); }
+.tarjeta-categoria img { width: 100%; height: 300px; object-fit: cover; display: block; }
+.tarjeta-categoria__nombre { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: #fff; text-align: center; padding: 30px 15px 15px 15px; font-size: 1.5em; font-weight: 700; }
+
+/* --- Página: Login y Registro --- */
+.formulario-acceso { display: flex; justify-content: center; align-items: center; padding: 40px 0; }
+.formulario-acceso__tarjeta { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+.formulario-acceso__tarjeta h2 { text-align: center; margin-top: 0; margin-bottom: 25px; }
+.formulario-acceso__grupo { margin-bottom: 20px; }
+.formulario-acceso__grupo label { display: block; margin-bottom: 8px; font-weight: 700; }
+.formulario-acceso__grupo input, .formulario-acceso__grupo textarea, .formulario-acceso__grupo select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+.formulario-acceso__pie { text-align: center; margin-top: 20px; font-size: 0.9em; }
+
+/* --- Componente: Alertas --- */
+.alerta { padding: 15px; margin-bottom: 20px; border-radius: 5px; border: 1px solid transparent; text-align: center; }
+.alerta--peligro { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+.alerta--exito { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+
+/* --- Página: Catálogo --- */
+.cuadricula-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+.tarjeta-producto { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.tarjeta-producto:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.12); }
+.tarjeta-producto__imagen { width: 100%; height: 200px; overflow: hidden; }
+.tarjeta-producto__imagen img { width: 100%; height: 100%; object-fit: cover; }
+.tarjeta-producto__info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+.tarjeta-producto__nombre { font-size: 1.2em; margin: 0 0 10px 0; }
+.tarjeta-producto__precio { font-size: 1.3em; font-weight: 700; color: var(--color-primary); margin: 0 0 15px 0; }
+.tarjeta-producto__info .boton { margin-top: auto; }
+.cuadricula-productos__mensaje-vacio { text-align: center; grid-column: 1 / -1; }
+
+/* --- Página: Inventario y Perfil (Estilos de Tarjeta Genérica) --- */
+.tarjeta-contenido { background: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-top: 20px; }
+.tarjeta-contenido__encabezado { padding: 15px 20px; background: #f8f9fa; border-bottom: 1px solid #dee2e6; border-radius: 8px 8px 0 0; }
+.tarjeta-contenido__cuerpo { padding: 20px; }
+.formulario-inventario-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.formulario-inventario-acciones { padding-top: 20px; text-align: right; display: flex; gap: 10px; justify-content: flex-end; }
+.formulario-grupo--ancho-completo { grid-column: 1 / -1; }
+
+/* --- Componente: Tabla de Contenido --- */
+.tabla-contenido { width: 100%; border-collapse: collapse; }
+.tabla-contenido th, .tabla-contenido td { padding: 15px; text-align: left; border-bottom: 1px solid #dee2e6; }
+.tabla-contenido thead { background-color: #e9ecef; }
+.tabla-contenido .texto-centrado { text-align: center; }
+.tabla-contenido .boton { margin-right: 5px; }
+
+/* --- Componente: Footer (en inglés, como se solicitó) --- */
+.footer { background-color: var(--color-dark); color: var(--color-light); padding: 20px 0; margin-top: 40px; text-align: center; }
+.footer__container { width: 90%; max-width: 1200px; margin: 0 auto; }

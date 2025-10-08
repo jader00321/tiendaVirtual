@@ -27,7 +27,7 @@ public class UsuarioControlador extends HttpServlet {
             throws ServletException, IOException {
         String accion = request.getParameter("accion");
         if (accion == null) {
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("index");
             return;
         }
 
@@ -40,7 +40,7 @@ public class UsuarioControlador extends HttpServlet {
                     registrar(request, response);
                     break;
                 default:
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("index");
             }
         } catch (SQLException | ClassNotFoundException ex) {
             throw new ServletException(ex);
@@ -69,7 +69,7 @@ public class UsuarioControlador extends HttpServlet {
         if (usuario != null && usuario.getPassword().equals(password)) {
             HttpSession session = request.getSession();
             session.setAttribute("usuario", usuario);
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("index");
         } else {
             request.setAttribute("error", "Credenciales incorrectas. Por favor, intente de nuevo.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -106,7 +106,7 @@ public class UsuarioControlador extends HttpServlet {
             session.setAttribute("usuario", usuarioRegistrado);
         }
 
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("index");
     }
 
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -114,7 +114,7 @@ public class UsuarioControlador extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("index");
     }
 
     private void comprar(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -3,6 +3,7 @@ package com.tiendavirtual.modelo;
 
 public class Producto {
     private int id;
+    private String codigo;
     private String nombre;
     private String descripcion;
     private double precioVenta;
@@ -11,19 +12,15 @@ public class Producto {
     private Integer categoriaId;
     private double precioCosto;
     private Integer proveedorId;
-    
-    // --- NUEVOS CAMPOS ---
-    private String codigo; // Para el código único de producto
-    private String nombreCategoria; // Para mostrar el nombre de la categoría en las vistas
+    private String nombreCategoria; // Campo crucial para mostrar el nombre
 
-    public Producto() {
-    }
+    public Producto() {}
 
-    // --- GETTERS Y SETTERS ---
-    // (Incluyendo los nuevos para 'codigo' y 'nombreCategoria')
-
+    // --- GETTERS Y SETTERS COMPLETOS ---
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
+    public String getCodigo() { return codigo; }
+    public void setCodigo(String codigo) { this.codigo = codigo; }
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getDescripcion() { return descripcion; }
@@ -40,9 +37,6 @@ public class Producto {
     public void setPrecioCosto(double precioCosto) { this.precioCosto = precioCosto; }
     public Integer getProveedorId() { return proveedorId; }
     public void setProveedorId(Integer proveedorId) { this.proveedorId = proveedorId; }
-    
-    public String getCodigo() { return codigo; }
-    public void setCodigo(String codigo) { this.codigo = codigo; }
     public String getNombreCategoria() { return nombreCategoria; }
     public void setNombreCategoria(String nombreCategoria) { this.nombreCategoria = nombreCategoria; }
 }
