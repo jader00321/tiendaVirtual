@@ -94,7 +94,7 @@ public class ProductoControlador extends HttpServlet {
             try {
                 filtroCategoriaId = Integer.parseInt(filtroCategoriaStr);
             } catch (NumberFormatException e) {
-                // Si el valor no es un número, se ignora el filtro.
+                filtroCategoriaId = null;
             }
         }
         
@@ -125,8 +125,7 @@ public class ProductoControlador extends HttpServlet {
     private void agregarProducto(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException, ClassNotFoundException {
         try {
             Producto nuevoProducto = new Producto();
-            
-            // Generación del código único
+
             String codigo = "PROD-" + System.currentTimeMillis();
             nuevoProducto.setCodigo(codigo);
             

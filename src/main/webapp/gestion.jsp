@@ -4,7 +4,6 @@
 <jsp:include page="/componentes/header.jsp" />
 
 <div class="container mt-4">
-    <%-- Bloque para mensajes --%>
     <c:if test="${not empty sessionScope.mensaje}">
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             <c:out value="${sessionScope.mensaje}"/>

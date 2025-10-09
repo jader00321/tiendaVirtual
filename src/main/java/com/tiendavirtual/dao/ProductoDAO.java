@@ -1,4 +1,3 @@
-// Ruta: src/main/java/com/tiendavirtual/dao/ProductoDAO.java
 package com.tiendavirtual.dao;
 
 import com.tiendavirtual.modelo.Producto;
@@ -36,21 +35,14 @@ public class ProductoDAO {
         return producto;
     }
 
-    // --- NUEVO MÉTODO ESPECÍFICO PARA LA PÁGINA DE INICIO ---
-    /**
-     * Obtiene una lista limitada de los productos más nuevos para mostrarlos como destacados.
-     * @param limite El número máximo de productos a devolver.
-     * @return Una lista de productos destacados.
-     */
     public List<Producto> listarDestacados(int limite) throws SQLException, ClassNotFoundException {
         List<Producto> productos = new ArrayList<>();
-        // La consulta ahora incluye LIMIT para ser más eficiente
         String sql = "SELECT p.*, c.nombre AS nombre_categoria FROM productos p LEFT JOIN categorias c ON p.categoria_id = c.id ORDER BY p.id DESC LIMIT ?";
         
         try (Connection conn = con.establecerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
-            pstmt.setInt(1, limite); // Se establece el límite en la consulta
+            pstmt.setInt(1, limite);
             
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -60,8 +52,6 @@ public class ProductoDAO {
         }
         return productos;
     }
-    
-    // El resto de los métodos se mantienen para las otras funcionalidades
 
     public List<Producto> listar(Integer categoriaIdFiltro, String terminoBusqueda) throws SQLException, ClassNotFoundException {
         List<Producto> productos = new ArrayList<>();

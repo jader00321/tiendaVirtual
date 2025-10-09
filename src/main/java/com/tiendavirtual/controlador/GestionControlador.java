@@ -37,7 +37,6 @@ public class GestionControlador extends HttpServlet {
         categoriaDAO = new CategoriaDAO();
         proveedorDAO = new ProveedorDAO();
         String userHome = System.getProperty("user.home");
-        // RUTA CORREGIDA
         uploadPath = userHome + File.separator + "tienda_imagenes";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
@@ -54,7 +53,6 @@ public class GestionControlador extends HttpServlet {
         
         try {
             switch (accion) {
-                // ACCIONES GET: Mostrar formularios de edición o eliminar
                 case "editarCategoria":
                     mostrarFormularioEdicionCategoria(request, response);
                     break;
@@ -68,7 +66,6 @@ public class GestionControlador extends HttpServlet {
                     eliminarProveedor(request, response);
                     break;
                 default:
-                    // La acción por defecto es simplemente mostrar la página
                     mostrarPaginaGestion(request, response, null, null);
             }
         } catch (SQLException | ClassNotFoundException e) {
@@ -80,20 +77,19 @@ public class GestionControlador extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
         if (accion == null) {
-            doGet(request, response); // Si no hay acción, mostrar la página
+            doGet(request, response);
             return;
         }
 
         try {
             switch (accion) {
-                // ACCIONES POST: Guardar datos de formularios
                 case "agregarCategoria":
                     agregarCategoria(request, response);
                     break;
                 case "actualizarCategoria":
                     actualizarCategoria(request, response);
                     break;
-                case "agregarProveedor": // La acción del nuevo formulario
+                case "agregarProveedor":
                     agregarProveedor(request, response);
                     break;
                 case "actualizarProveedor":
@@ -107,7 +103,6 @@ public class GestionControlador extends HttpServlet {
         }
     }
 
-    // MÉTODO CON LA FIRMA CORREGIDA
     private void mostrarPaginaGestion(HttpServletRequest request, HttpServletResponse response, Categoria categoriaParaEditar, Proveedor proveedorParaEditar) throws SQLException, ClassNotFoundException, ServletException, IOException {
         List<Categoria> listaCategorias = categoriaDAO.listar();
         List<Proveedor> listaProveedores = proveedorDAO.listar();
@@ -120,8 +115,6 @@ public class GestionControlador extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("gestion.jsp");
         dispatcher.forward(request, response);
     }
-    
-    // --- (El resto de los métodos se mantienen igual que en la versión anterior) ---
 
     private void mostrarFormularioEdicionCategoria(HttpServletRequest request, HttpServletResponse response) throws NumberFormatException, SQLException, ClassNotFoundException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));

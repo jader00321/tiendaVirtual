@@ -30,22 +30,18 @@ public class IndexControlador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            // 1. Obtiene la lista de objetos Categoria desde la base de datos.
             List<Categoria> listaCategorias = categoriaDAO.listar();
-            
-            // 2. Llama al nuevo método del DAO para obtener solo 4 productos destacados.
+
             List<Producto> productosDestacados = productoDAO.listarDestacados(4); 
-            
-            // 3. Envía ambas listas a la vista como atributos del request.
+
             request.setAttribute("listaCategorias", listaCategorias);
             request.setAttribute("listaProductosDestacados", productosDestacados);
 
-            // 4. Reenvía la petición a la vista JSP.
             RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.forward(request, response);
             
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace(); // Imprime el error detallado en la consola del servidor.
+            e.printStackTrace();
             throw new ServletException("Error al recuperar los datos para la página de inicio", e);
         }
     }

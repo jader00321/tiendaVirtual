@@ -1,4 +1,3 @@
-// Ruta: src/main/java/com/tiendavirtual/dao/ProveedorDAO.java
 package com.tiendavirtual.dao;
 
 import com.tiendavirtual.modelo.Proveedor;
@@ -62,13 +61,9 @@ public class ProveedorDAO {
         String sql = "UPDATE proveedores SET nombre = ?, contacto = ? WHERE id = ?";
         try (Connection conn = con.establecerConexion();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            // Asigna los valores a los parámetros (?) de la consulta SQL.
             pstmt.setString(1, proveedor.getNombre());
             pstmt.setString(2, proveedor.getContacto());
             pstmt.setInt(3, proveedor.getId());
-
-            // Ejecuta la actualización.
             pstmt.executeUpdate();
         }
     }
@@ -78,10 +73,8 @@ public class ProveedorDAO {
         try (Connection conn = con.establecerConexion();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Asigna el ID al parámetro (?) de la consulta SQL.
             pstmt.setInt(1, id);
 
-            // Ejecuta la eliminación.
             pstmt.executeUpdate();
         }
     }

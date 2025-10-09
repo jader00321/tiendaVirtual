@@ -27,7 +27,7 @@ public class FiltroAutenticacion implements Filter {
             if ("ADMIN".equals(rol) || "TRABAJADOR".equals(rol)) {
                 chain.doFilter(request, response);
             } else {
-                respuestaHttp.sendRedirect(solicitudHttp.getContextPath() + "/index.jsp");
+                respuestaHttp.sendRedirect(solicitudHttp.getContextPath() + "/index");
             }
         } else {
             respuestaHttp.sendRedirect(solicitudHttp.getContextPath() + "/login.jsp");

@@ -1,4 +1,3 @@
-// Ruta: src/main/java/com/tiendavirtual/controlador/ProductoDetalleControlador.java
 package com.tiendavirtual.controlador;
 
 import com.tiendavirtual.dao.ProductoDAO;
@@ -41,7 +40,6 @@ public class ProductoDetalleControlador extends HttpServlet {
 
         try {
             int productoId = Integer.parseInt(idParam);
-            // El método buscarPorId ahora devuelve el producto con 'nombreCategoria' ya incluido.
             Producto producto = productoDAO.buscarPorId(productoId);
 
             if (producto == null) {
@@ -54,7 +52,6 @@ public class ProductoDetalleControlador extends HttpServlet {
                 proveedor = proveedorDAO.buscarPorId(producto.getProveedorId());
             }
 
-            // Crear el DTO con la información combinada
             ProductoDetalleDTO dto = new ProductoDetalleDTO();
             dto.setId(producto.getId());
             dto.setNombre(producto.getNombre());
@@ -66,7 +63,6 @@ public class ProductoDetalleControlador extends HttpServlet {
             dto.setNombreProveedor(proveedor != null ? proveedor.getNombre() : "No especificado");
             dto.setNombreCategoria(producto.getNombreCategoria() != null ? producto.getNombreCategoria() : "No especificada");
 
-            // Convertir el DTO a JSON y enviarlo como respuesta
             String productoJson = this.gson.toJson(dto);
 
             response.setContentType("application/json");

@@ -3,7 +3,6 @@ package com.tiendavirtual.controlador;
 import com.tiendavirtual.dao.UsuarioDAO;
 import com.tiendavirtual.modelo.Usuario;
 import com.tiendavirtual.negocio.ProcesoCompraFacade;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -120,23 +119,18 @@ public class UsuarioControlador extends HttpServlet {
     private void comprar(HttpServletRequest request, HttpServletResponse response) throws IOException {
         HttpSession session = request.getSession(false);
 
-        // Primero, verificamos si el usuario ha iniciado sesión.
         if (session == null || session.getAttribute("usuario") == null) {
             response.sendRedirect("login.jsp");
             return;
         }
 
         try {
-            // Obtenemos el ID del producto desde el parámetro de la URL.
             int productoId = Integer.parseInt(request.getParameter("id"));
 
-            // Creamos una instancia de nuestra fachada.
             ProcesoCompraFacade compraFacade = new ProcesoCompraFacade();
 
-            // Llamamos al método de la fachada. Toda la complejidad está oculta aquí.
             boolean exito = compraFacade.realizarCompra(productoId);
 
-            // Basado en el resultado, establecemos un mensaje para el usuario.
             if (exito) {
                 session.setAttribute("mensaje", "¡Compra simulada con éxito! El stock ha sido actualizado.");
             } else {
@@ -147,7 +141,6 @@ public class UsuarioControlador extends HttpServlet {
             session.setAttribute("mensaje", "Error: ID de producto inválido.");
         }
 
-        // Redirigimos al usuario de vuelta al catálogo para que vea el mensaje.
         response.sendRedirect("catalogo");
     }
 }

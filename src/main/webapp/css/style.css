@@ -1,4 +1,3 @@
-/* --- Variables Globales y Reseteo --- */
 :root {
     --color-primary: #007bff;
     --color-secondary: #6c757d;
@@ -26,7 +25,6 @@ body {
 .contenedor-principal { width: 90%; max-width: 1200px; margin: 0 auto; padding: 20px 0; flex-grow: 1; }
 .titulo-pagina { text-align: center; margin-bottom: 30px; font-size: 2.5em; font-family: var(--font-primary); }
 
-/* --- Componente: Header (en inglés, como se solicitó) --- */
 .header { background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 10px 0; position: sticky; top: 0; z-index: 1000; }
 .header__container { width: 90%; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
 .header__logo a { text-decoration: none; color: var(--color-primary); font-size: 1.8em; font-weight: 700; display: flex; align-items: center; gap: 10px; }
@@ -37,7 +35,6 @@ body {
 .header__nav a:hover { color: var(--color-primary); }
 .header__nav a.boton { color: #fff; }
 
-/* --- Componente: Botones --- */
 .boton { display: inline-block; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: #fff; border: none; cursor: pointer; font-weight: 700; text-align: center; transition: all 0.3s ease; }
 .boton:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
 .boton--primario { background-color: var(--color-primary); }
@@ -50,7 +47,6 @@ body {
 .boton--grande { font-size: 1.1em; padding: 12px 25px; }
 .boton--bloque { display: block; width: 100%; }
 
-/* --- Página: Inicio (Hero & Categorías) --- */
 .hero { background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../imagenes/hero-banner.jpg'); background-size: cover; background-position: center; color: #fff; text-align: center; padding: 100px 20px; border-radius: 8px; margin-bottom: 40px; }
 .hero__contenido h1 { font-size: 3em; margin-bottom: 10px; }
 .hero__contenido p { font-size: 1.2em; margin-bottom: 30px; }
@@ -61,7 +57,6 @@ body {
 .tarjeta-categoria img { width: 100%; height: 300px; object-fit: cover; display: block; }
 .tarjeta-categoria__nombre { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: #fff; text-align: center; padding: 30px 15px 15px 15px; font-size: 1.5em; font-weight: 700; }
 
-/* --- Página: Login y Registro --- */
 .formulario-acceso { display: flex; justify-content: center; align-items: center; padding: 40px 0; }
 .formulario-acceso__tarjeta { background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
 .formulario-acceso__tarjeta h2 { text-align: center; margin-top: 0; margin-bottom: 25px; }
@@ -70,12 +65,10 @@ body {
 .formulario-acceso__grupo input, .formulario-acceso__grupo textarea, .formulario-acceso__grupo select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
 .formulario-acceso__pie { text-align: center; margin-top: 20px; font-size: 0.9em; }
 
-/* --- Componente: Alertas --- */
 .alerta { padding: 15px; margin-bottom: 20px; border-radius: 5px; border: 1px solid transparent; text-align: center; }
 .alerta--peligro { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
 .alerta--exito { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
 
-/* --- Página: Catálogo --- */
 .cuadricula-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
 .tarjeta-producto { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease; }
 .tarjeta-producto:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.12); }
@@ -87,7 +80,6 @@ body {
 .tarjeta-producto__info .boton { margin-top: auto; }
 .cuadricula-productos__mensaje-vacio { text-align: center; grid-column: 1 / -1; }
 
-/* --- Página: Inventario y Perfil (Estilos de Tarjeta Genérica) --- */
 .tarjeta-contenido { background: #fff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-top: 20px; }
 .tarjeta-contenido__encabezado { padding: 15px 20px; background: #f8f9fa; border-bottom: 1px solid #dee2e6; border-radius: 8px 8px 0 0; }
 .tarjeta-contenido__cuerpo { padding: 20px; }
@@ -95,13 +87,11 @@ body {
 .formulario-inventario-acciones { padding-top: 20px; text-align: right; display: flex; gap: 10px; justify-content: flex-end; }
 .formulario-grupo--ancho-completo { grid-column: 1 / -1; }
 
-/* --- Componente: Tabla de Contenido --- */
 .tabla-contenido { width: 100%; border-collapse: collapse; }
 .tabla-contenido th, .tabla-contenido td { padding: 15px; text-align: left; border-bottom: 1px solid #dee2e6; }
 .tabla-contenido thead { background-color: #e9ecef; }
 .tabla-contenido .texto-centrado { text-align: center; }
 .tabla-contenido .boton { margin-right: 5px; }
 
-/* --- Componente: Footer (en inglés, como se solicitó) --- */
 .footer { background-color: var(--color-dark); color: var(--color-light); padding: 20px 0; margin-top: 40px; text-align: center; }
 .footer__container { width: 90%; max-width: 1200px; margin: 0 auto; }

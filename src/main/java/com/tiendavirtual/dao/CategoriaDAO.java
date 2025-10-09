@@ -1,4 +1,3 @@
-// Ruta: src/main/java/com/tiendavirtual/dao/CategoriaDAO.java
 package com.tiendavirtual.dao;
 
 import com.tiendavirtual.modelo.Categoria;

@@ -1,11 +1,9 @@
-<%-- Ruta: /webapp/inventario.jsp --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <jsp:include page="/componentes/header.jsp" />
 
-<%-- Bloque para mensajes de sesión --%>
 <c:if test="${not empty sessionScope.mensaje}">
     <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
         <c:out value="${sessionScope.mensaje}"/>
@@ -16,7 +14,6 @@
 
 <h1 class="titulo-pagina">Gestión de Inventario</h1>
 
-<%-- Formulario para Agregar/Editar Productos --%>
 <div class="tarjeta-contenido card mb-4">
     <div class="tarjeta-contenido__encabezado card-header">
         <h2><c:out value="${not empty producto ? 'Editar Producto' : 'Agregar Nuevo Producto'}"/></h2>
@@ -46,7 +43,6 @@
                     <input type="text" id="nombre" name="nombre" value="${producto.nombre}" class="form-control" required>
                 </div>
 
-                <%-- El resto del formulario se mantiene igual que la versión anterior --%>
                 <div class="col-md-6">
                     <label for="categoriaId" class="form-label">Categoría</label>
                     <select id="categoriaId" name="categoriaId" class="form-select" required>
