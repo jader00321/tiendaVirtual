@@ -82,15 +82,13 @@
 <script>
     function descargarPDF() {
         const boletaContenido = document.getElementById('boleta-contenido');
-        const codigoBoleta = "${pedido.codigoBoleta}"; // Obtenemos el código de la boleta desde JSP
+        const codigoBoleta = "${pedido.codigoBoleta}";
 
         html2canvas(boletaContenido, { scale: 2 }).then(canvas => {
             const imgData = canvas.toDataURL('image/png');
-            
-            // Usamos window.jspdf para acceder a la librería
+
             const { jsPDF } = window.jspdf;
-            
-            // Creamos un PDF en orientación vertical (portrait), usando milímetros y tamaño A4
+
             const pdf = new jsPDF('p', 'mm', 'a4');
             
             const pdfWidth = pdf.internal.pageSize.getWidth();

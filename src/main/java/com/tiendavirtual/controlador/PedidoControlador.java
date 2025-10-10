@@ -48,7 +48,6 @@ public class PedidoControlador extends HttpServlet {
                 RequestDispatcher dispatcher = request.getRequestDispatcher("historial_pedidos.jsp");
                 dispatcher.forward(request, response);
             } else {
-                // Por defecto, muestra una boleta específica
                 int pedidoId = Integer.parseInt(request.getParameter("pedidoId"));
                 Pedido pedido = pedidoDAO.buscarPedidoPorId(pedidoId);
                 

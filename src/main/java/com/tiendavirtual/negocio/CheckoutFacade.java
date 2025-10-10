@@ -1,4 +1,3 @@
-// Ruta: src/main/java/com/tiendavirtual/negocio/CheckoutFacade.java
 package com.tiendavirtual.negocio;
 
 import com.tiendavirtual.dao.PedidoDAO;
@@ -26,18 +25,7 @@ public class CheckoutFacade {
         this.pedidoDAO = new PedidoDAO();
     }
 
-    /**
-     * Procesa la finalización de una compra.
-     * @param carrito El carrito de compras del usuario.
-     * @param usuario El usuario que realiza la compra.
-     * @return El ID del pedido generado si la compra es exitosa.
-     * @throws SQLException Si hay un error en la base de datos.
-     * @throws ClassNotFoundException Si no se encuentra el driver de la BD.
-     * @throws IllegalStateException Si no hay suficiente stock para algún producto.
-     */
     public int finalizarCompra(CarritoDeCompras carrito, Usuario usuario) throws SQLException, ClassNotFoundException, IllegalStateException {
-        // --- 1. Verificación de Stock ---
-        // Antes de hacer cualquier cambio, nos aseguramos de que haya stock para todo.
         for (CarritoItem item : carrito.getItems()) {
             Producto productoDB = productoDAO.buscarPorId(item.getProducto().getId());
             if (productoDB == null || productoDB.getStock() < item.getCantidad()) {
@@ -45,7 +33,6 @@ public class CheckoutFacade {
             }
         }
 
-        // --- 2. Crear los objetos Pedido y PedidoItem ---
         Pedido pedido = new Pedido();
         pedido.setUsuarioId(usuario.getId());
         pedido.setTotal(carrito.getTotal());
@@ -61,15 +48,12 @@ public class CheckoutFacade {
             pedidoItems.add(pedidoItem);
         }
 
-        // --- 3. Actualizar el Stock en la Base de Datos ---
         for (CarritoItem item : carrito.getItems()) {
             Producto producto = item.getProducto();
             producto.setStock(producto.getStock() - item.getCantidad());
             productoDAO.actualizar(producto);
         }
 
-        // --- 4. Guardar el Pedido en la Base de Datos ---
-        // El PedidoDAO se encargará de la transacción para asegurar que todo se guarde correctamente.
         return pedidoDAO.guardarPedido(pedido, pedidoItems);
     }
 }

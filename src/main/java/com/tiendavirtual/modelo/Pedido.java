@@ -10,14 +10,12 @@ public class Pedido {
     private Timestamp fecha;
     private double total;
     private String codigoBoleta;
-    
-    // Opcional: para cargar los ítems junto con el pedido
+
     private List<PedidoItem> items;
 
     public Pedido() {
     }
 
-    // Getters y Setters
     public int getId() {
         return id;
     }

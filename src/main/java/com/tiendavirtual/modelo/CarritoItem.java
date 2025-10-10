@@ -1,4 +1,3 @@
-// Ruta: src/main/java/com/tiendavirtual/modelo/CarritoItem.java
 package com.tiendavirtual.modelo;
 
 public class CarritoItem {

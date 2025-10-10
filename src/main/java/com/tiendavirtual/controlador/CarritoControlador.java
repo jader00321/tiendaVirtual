@@ -29,7 +29,7 @@ public class CarritoControlador extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
         if (accion == null) {
-            accion = "mostrar"; // Por defecto, mostramos el carrito
+            accion = "mostrar"; 
         }
 
         try {
@@ -53,7 +53,6 @@ public class CarritoControlador extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // La vista del carrito se muestra a través de GET
         try {
             mostrarCarrito(request, response);
         } catch (Exception e) {
@@ -61,11 +60,8 @@ public class CarritoControlador extends HttpServlet {
         }
     }
 
-    /**
-     * Obtiene el carrito de la sesión, o crea uno nuevo si no existe.
-     */
     private CarritoDeCompras getCarrito(HttpServletRequest request) {
-        HttpSession session = request.getSession(true); // true para crear la sesión si no existe
+        HttpSession session = request.getSession(true);
         CarritoDeCompras carrito = (CarritoDeCompras) session.getAttribute("carrito");
         if (carrito == null) {
             carrito = new CarritoDeCompras();
@@ -83,8 +79,7 @@ public class CarritoControlador extends HttpServlet {
             CarritoDeCompras carrito = getCarrito(request);
             carrito.agregarItem(producto, cantidad);
         }
-        
-        // Redirigir de vuelta a la página de donde vino el usuario
+
         String referer = request.getHeader("Referer");
         response.sendRedirect(referer != null ? referer : "catalogo");
     }
@@ -109,7 +104,6 @@ public class CarritoControlador extends HttpServlet {
     }
     
     private void mostrarCarrito(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Solo necesita reenviar a la JSP, ya que la JSP leerá el carrito desde la sesión.
         RequestDispatcher dispatcher = request.getRequestDispatcher("carrito.jsp");
         dispatcher.forward(request, response);
     }
