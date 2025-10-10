@@ -16,14 +16,15 @@ public class PedidoDAO {
 
     /**
      * Guarda un pedido y sus ítems en la base de datos dentro de una transacción.
+     * 
      * @param pedido El objeto Pedido a guardar.
-     * @param items La lista de PedidoItem asociados al pedido.
+     * @param items  La lista de PedidoItem asociados al pedido.
      * @return El ID del pedido generado.
      */
     public int guardarPedido(Pedido pedido, List<PedidoItem> items) throws SQLException, ClassNotFoundException {
         String sqlPedido = "INSERT INTO pedidos (usuario_id, total, codigo_boleta, fecha) VALUES (?, ?, ?, ?)";
         String sqlItem = "INSERT INTO pedido_items (pedido_id, producto_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)";
-        
+
         Connection conn = null;
         int pedidoId = -1;
         try {
@@ -80,6 +81,7 @@ public class PedidoDAO {
 
     /**
      * Busca un pedido por su ID.
+     * 
      * @param pedidoId El ID del pedido a buscar.
      * @return El objeto Pedido encontrado, o null si no existe.
      */
@@ -87,7 +89,7 @@ public class PedidoDAO {
         String sql = "SELECT * FROM pedidos WHERE id = ?";
         Pedido pedido = null;
         try (Connection conn = con.establecerConexion();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, pedidoId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
@@ -104,7 +106,9 @@ public class PedidoDAO {
     }
 
     /**
-     * Busca todos los ítems de un pedido específico, incluyendo detalles del producto.
+     * Busca todos los ítems de un pedido específico, incluyendo detalles del
+     * producto.
+     * 
      * @param pedidoId El ID del pedido del cual se quieren los ítems.
      * @return Una lista de objetos PedidoItem.
      */
@@ -112,7 +116,7 @@ public class PedidoDAO {
         List<PedidoItem> items = new ArrayList<>();
         String sql = "SELECT pi.*, p.nombre, p.imagen_url FROM pedido_items pi JOIN productos p ON pi.producto_id = p.id WHERE pi.pedido_id = ?";
         try (Connection conn = con.establecerConexion();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, pedidoId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -135,5 +139,33 @@ public class PedidoDAO {
             }
         }
         return items;
+    }
+
+    /**
+     * Busca todos los pedidos de un usuario específico, ordenados por el más
+     * reciente.
+     * 
+     * @param usuarioId El ID del usuario.
+     * @return Una lista de sus pedidos.
+     */
+    public List<Pedido> buscarPorUsuarioId(int usuarioId) throws SQLException, ClassNotFoundException {
+        List<Pedido> pedidos = new ArrayList<>();
+        String sql = "SELECT * FROM pedidos WHERE usuario_id = ? ORDER BY fecha DESC";
+        try (Connection conn = con.establecerConexion();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, usuarioId);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Pedido pedido = new Pedido();
+                    pedido.setId(rs.getInt("id"));
+                    pedido.setUsuarioId(rs.getInt("usuario_id"));
+                    pedido.setFecha(rs.getTimestamp("fecha"));
+                    pedido.setTotal(rs.getDouble("total"));
+                    pedido.setCodigoBoleta(rs.getString("codigo_boleta"));
+                    pedidos.add(pedido);
+                }
+            }
+        }
+        return pedidos;
     }
 }

@@ -14,6 +14,8 @@
                 <p><strong>Nombre:</strong> <c:out value="${sessionScope.usuario.nombre}"/></p>
                 <p><strong>Correo Electrónico:</strong> <c:out value="${sessionScope.usuario.email}"/></p>
                 <p><strong>Rol:</strong> <c:out value="${sessionScope.usuario.rol}"/></p>
+                <hr>
+                <a href="pedido?accion=historial" class="btn btn-outline-primary">Ver mi Historial de Compras</a>
             </div>
         </div>
     </c:when>
