@@ -2,7 +2,6 @@ package com.tiendavirtual.controlador;
 
 import com.tiendavirtual.dao.UsuarioDAO;
 import com.tiendavirtual.modelo.Usuario;
-import com.tiendavirtual.negocio.ProcesoCompraFacade;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -51,8 +50,6 @@ public class UsuarioControlador extends HttpServlet {
         String accion = request.getParameter("accion");
         if ("logout".equals(accion)) {
             logout(request, response);
-        } else if ("comprar".equals(accion)) {
-            comprar(request, response);
         } else {
             doPost(request, response);
         }
@@ -116,31 +113,4 @@ public class UsuarioControlador extends HttpServlet {
         response.sendRedirect("index");
     }
 
-    private void comprar(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession(false);
-
-        if (session == null || session.getAttribute("usuario") == null) {
-            response.sendRedirect("login.jsp");
-            return;
-        }
-
-        try {
-            int productoId = Integer.parseInt(request.getParameter("id"));
-
-            ProcesoCompraFacade compraFacade = new ProcesoCompraFacade();
-
-            boolean exito = compraFacade.realizarCompra(productoId);
-
-            if (exito) {
-                session.setAttribute("mensaje", "¡Compra simulada con éxito! El stock ha sido actualizado.");
-            } else {
-                session.setAttribute("mensaje", "Error en la compra: el producto no tiene stock o no existe.");
-            }
-
-        } catch (NumberFormatException e) {
-            session.setAttribute("mensaje", "Error: ID de producto inválido.");
-        }
-
-        response.sendRedirect("catalogo");
-    }
 }

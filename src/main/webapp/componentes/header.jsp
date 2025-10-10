@@ -27,7 +27,18 @@
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/index">Inicio</a></li>
                     <li><a href="${pageContext.request.contextPath}/catalogo">Catalogo</a></li>
-                    
+
+                    <li>
+                        <a href="${pageContext.request.contextPath}/carrito" class="btn btn-outline-primary btn-sm position-relative">
+                            Carrito
+                            <c:if test="${not empty sessionScope.carrito and sessionScope.carrito.numeroItems > 0}">
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    ${sessionScope.carrito.numeroItems}
+                                </span>
+                            </c:if>
+                        </a>
+                    </li>
+       
                     <c:if test="${sessionScope.usuario.rol == 'ADMIN' or sessionScope.usuario.rol == 'TRABAJADOR'}">
                         <li><a href="${pageContext.request.contextPath}/inventario">Inventario</a></li>
                     </c:if>

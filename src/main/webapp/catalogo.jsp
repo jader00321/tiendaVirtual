@@ -33,9 +33,14 @@
                                     <div class="tarjeta-producto__info card-body d-flex flex-column">
                                         <h5 class="tarjeta-producto__nombre card-title"><c:out value="${p.nombre}"/></h5>
                                         <p class="tarjeta-producto__precio card-text fs-4 fw-bold"><fmt:formatNumber value="${p.precioVenta}" type="currency" currencySymbol="S/ "/></p>
-                                        <div class="mt-auto d-grid gap-2">
-                                            <a href="${pageContext.request.contextPath}/usuario?accion=comprar&id=${p.id}" class="btn btn-primary">Comprar</a>
-                                            <button type="button" class="btn btn-secondary" data-product-id="${p.id}" onclick="mostrarDetalles(this)">Ver Detalles</button>
+                                        <div class="mt-auto">
+                                            <form action="carrito" method="post" class="d-flex gap-2">
+                                                <input type="hidden" name="accion" value="agregar">
+                                                    <input type="hidden" name="productoId" value="${p.id}">
+                                                    <input type="number" name="cantidad" class="form-control form-control-sm" value="1" min="1" max="${p.stock}" style="width: 70px;">
+                                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1">Añadir al Carrito</button>
+                                            </form>
+                                            <button type="button" class="btn btn-secondary btn-sm w-100 mt-2" data-product-id="${p.id}" onclick="mostrarDetalles(this)">Ver Detalles</button>
                                         </div>
                                     </div>
                                 </div>
