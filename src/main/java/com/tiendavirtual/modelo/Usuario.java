@@ -1,4 +1,3 @@
-// Ruta: src/main/java/com/tiendavirtual/modelo/Usuario.java
 package com.tiendavirtual.modelo;
 
 public class Usuario {
@@ -7,12 +6,11 @@ public class Usuario {
     private String email;
     private String password;
     private String rol;
-    private boolean activo; // Nuevo atributo
+    private boolean activo;
 
     public Usuario() {
     }
 
-    // --- Getters y Setters (incluyendo los nuevos para 'activo') ---
     public int getId() {
         return id;
     }

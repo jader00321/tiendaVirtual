@@ -1,4 +1,3 @@
-// Ruta: src/main/java/com/tiendavirtual/controlador/AdminControlador.java
 package com.tiendavirtual.controlador;
 
 import com.tiendavirtual.dao.UsuarioDAO;
@@ -25,7 +24,6 @@ public class AdminControlador extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // El método GET siempre mostrará la lista actualizada de usuarios
         try {
             List<Usuario> listaUsuarios = usuarioDAO.listarTodos();
             request.setAttribute("listaUsuarios", listaUsuarios);
@@ -47,7 +45,6 @@ public class AdminControlador extends HttpServlet {
                 usuarioDAO.cambiarRol(id, nuevoRol);
                 request.getSession().setAttribute("mensaje", "Rol del usuario ID " + id + " actualizado a " + nuevoRol + ".");
             } else if ("cambiarEstado".equals(accion)) {
-                // Para cambiar el estado, primero buscamos el usuario para saber su estado actual
                 Usuario usuario = usuarioDAO.buscarPorId(id);
                 if (usuario != null) {
                     usuarioDAO.cambiarEstado(id, !usuario.isActivo());
@@ -58,7 +55,6 @@ public class AdminControlador extends HttpServlet {
         } catch (SQLException | ClassNotFoundException | NumberFormatException e) {
             request.getSession().setAttribute("mensaje", "Error al procesar la solicitud: " + e.getMessage());
         }
-        // Redirigimos de vuelta a la página de gestión para ver los cambios
         response.sendRedirect(request.getContextPath() + "/admin/usuarios");
     }
 }

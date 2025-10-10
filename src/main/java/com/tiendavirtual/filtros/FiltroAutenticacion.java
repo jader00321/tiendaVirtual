@@ -1,4 +1,3 @@
-// Ruta: src/main/java/com/tiendavirtual/filtros/FiltroAutenticacion.java
 package com.tiendavirtual.filtros;
 
 import com.tiendavirtual.modelo.Usuario;
@@ -25,13 +24,13 @@ public class FiltroAutenticacion implements Filter {
 
             if (path.startsWith("/admin")) {
                 if ("ADMIN".equals(rol)) {
-                    chain.doFilter(request, response); // Acceso permitido para ADMIN
+                    chain.doFilter(request, response); 
                 } else {
                     httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Acceso denegado.");
                 }
             } else if (path.startsWith("/inventario") || path.startsWith("/gestion")) {
                 if ("ADMIN".equals(rol) || "TRABAJADOR".equals(rol)) {
-                    chain.doFilter(request, response); // Acceso permitido para ADMIN y TRABAJADOR
+                    chain.doFilter(request, response);
                 } else {
                     httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Acceso denegado.");
                 }

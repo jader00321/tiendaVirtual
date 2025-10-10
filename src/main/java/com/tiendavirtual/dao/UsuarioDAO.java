@@ -1,4 +1,3 @@
-// Ruta: src/main/java/com/tiendavirtual/dao/UsuarioDAO.java
 package com.tiendavirtual.dao;
 
 import com.tiendavirtual.modelo.Usuario;
@@ -20,7 +19,7 @@ public class UsuarioDAO {
         usuario.setEmail(rs.getString("email"));
         usuario.setPassword(rs.getString("password"));
         usuario.setRol(rs.getString("rol"));
-        usuario.setActivo(rs.getBoolean("activo")); // Leer el nuevo campo
+        usuario.setActivo(rs.getBoolean("activo"));
         return usuario;
     }
 
@@ -54,7 +53,6 @@ public class UsuarioDAO {
     }
 
     public void agregar(Usuario usuario) throws SQLException, ClassNotFoundException {
-        // La columna 'activo' no se incluye aquí porque tiene un valor por defecto en la BD
         String sql = "INSERT INTO usuarios (nombre, email, password, rol) VALUES (?, ?, ?, ?)";
         try (Connection conn = con.establecerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -66,8 +64,6 @@ public class UsuarioDAO {
         }
     }
 
-    // --- NUEVOS MÉTODOS PARA GESTIÓN DE USUARIOS ---
-
     public List<Usuario> listarTodos() throws SQLException, ClassNotFoundException {
         List<Usuario> lista = new ArrayList<>();
         String sql = "SELECT * FROM usuarios ORDER BY id ASC";
@@ -75,7 +71,6 @@ public class UsuarioDAO {
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
-                // No necesitamos el password para la lista de gestión
                 Usuario u = new Usuario();
                 u.setId(rs.getInt("id"));
                 u.setNombre(rs.getString("nombre"));
@@ -121,7 +116,6 @@ public class UsuarioDAO {
     }
     
     public void actualizarPerfil(int id, String nombre, String password) throws SQLException, ClassNotFoundException {
-        // Este método solo actualiza nombre y, opcionalmente, la contraseña
         StringBuilder sql = new StringBuilder("UPDATE usuarios SET nombre = ?");
         if (password != null && !password.isEmpty()) {
             sql.append(", password = ?");
