@@ -21,8 +21,7 @@ public class UsuarioControlador extends HttpServlet {
         usuarioDAO = new UsuarioDAO();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
         if (accion == null) {
             response.sendRedirect("index");
@@ -37,6 +36,10 @@ public class UsuarioControlador extends HttpServlet {
                 case "registrar":
                     registrar(request, response);
                     break;
+                // NUEVA ACCIÓN AÑADIDA
+                case "actualizarPerfil":
+                    actualizarPerfil(request, response);
+                    break;
                 default:
                     response.sendRedirect("index");
             }
@@ -45,15 +48,47 @@ public class UsuarioControlador extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String accion = request.getParameter("accion");
         if ("logout".equals(accion)) {
             logout(request, response);
         } else {
-            doPost(request, response);
+            response.sendRedirect("index");
         }
     }
+    
+    // --- NUEVO MÉTODO PARA ACTUALIZAR EL PERFIL ---
+    private void actualizarPerfil(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException, ClassNotFoundException {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("usuario") == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        Usuario usuarioEnSesion = (Usuario) session.getAttribute("usuario");
+        int id = usuarioEnSesion.getId();
+        String nombre = request.getParameter("nombre");
+        String password = request.getParameter("password");
+        String confirmPassword = request.getParameter("confirmPassword");
+        
+        // Validación de contraseña
+        if (password != null && !password.isEmpty() && !password.equals(confirmPassword)) {
+            request.setAttribute("error_perfil", "Las nuevas contraseñas no coinciden.");
+            request.getRequestDispatcher("perfil.jsp").forward(request, response);
+            return;
+        }
+
+        // Llamamos al método del DAO para actualizar nombre y, opcionalmente, la contraseña
+        usuarioDAO.actualizarPerfil(id, nombre, password);
+        
+        // ¡MUY IMPORTANTE! Actualizamos el objeto Usuario en la sesión
+        Usuario usuarioActualizado = usuarioDAO.buscarPorId(id);
+        session.setAttribute("usuario", usuarioActualizado);
+        
+        session.setAttribute("mensaje_perfil", "Tu perfil ha sido actualizado exitosamente.");
+        response.sendRedirect("perfil.jsp");
+    }
+
 
     private void login(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException, ClassNotFoundException {
         String email = request.getParameter("email");
@@ -61,13 +96,12 @@ public class UsuarioControlador extends HttpServlet {
         Usuario usuario = usuarioDAO.buscarPorEmail(email);
 
         if (usuario != null && usuario.getPassword().equals(password)) {
-            // --- NUEVA VALIDACIÓN DE ESTADO ---
             if (!usuario.isActivo()) {
                 request.setAttribute("error", "Su cuenta ha sido desactivada. Por favor, contacte al administrador.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
                 return;
             }
-        
+            
             HttpSession session = request.getSession();
             session.setAttribute("usuario", usuario);
             response.sendRedirect("index");
@@ -76,19 +110,15 @@ public class UsuarioControlador extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
-    private void registrar(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ClassNotFoundException {
+    
+    private void registrar(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException, ClassNotFoundException {
         String nombre = request.getParameter("nombre");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         if (usuarioDAO.buscarPorEmail(email) != null) {
             request.setAttribute("error", "El correo electrónico ya está registrado.");
-            try {
-                request.getRequestDispatcher("registro.jsp").forward(request, response);
-            } catch (ServletException e) {
-                throw new IOException(e);
-            }
+            request.getRequestDispatcher("registro.jsp").forward(request, response);
             return;
         }
 
@@ -97,16 +127,12 @@ public class UsuarioControlador extends HttpServlet {
         nuevoUsuario.setEmail(email);
         nuevoUsuario.setPassword(password);
         nuevoUsuario.setRol("CLIENTE");
+        nuevoUsuario.setActivo(true); // Se establece como activo por defecto
 
         usuarioDAO.agregar(nuevoUsuario);
 
-        Usuario usuarioRegistrado = usuarioDAO.buscarPorEmail(email);
-        if (usuarioRegistrado != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("usuario", usuarioRegistrado);
-        }
-
-        response.sendRedirect("index");
+        // Redirigir al login con un mensaje de éxito
+        response.sendRedirect("login.jsp?mensaje_registro=exitoso");
     }
 
     private void logout(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -116,5 +142,4 @@ public class UsuarioControlador extends HttpServlet {
         }
         response.sendRedirect("index");
     }
-
 }

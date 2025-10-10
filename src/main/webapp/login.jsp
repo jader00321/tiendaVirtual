@@ -1,3 +1,4 @@
+<%-- Ruta: /webapp/login.jsp --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/componentes/header.jsp" />
@@ -7,16 +8,8 @@
         <div class="card-body p-5">
             <h2 class="card-title text-center mb-4">Iniciar Sesión</h2>
             
-            <c:if test="${not empty requestScope.error}">
-                <div class="alert alert-danger" role="alert">
-                    <c:out value="${requestScope.error}"/>
-                </div>
-            </c:if>
-            <c:if test="${not empty param.mensaje_registro}">
-                <div class="alert alert-success" role="alert">
-                    ¡Registro exitoso! Por favor, inicia sesión.
-                </div>
-            </c:if>
+            <c:if test="${not empty requestScope.error}"><div class="alert alert-danger"><c:out value="${requestScope.error}"/></div></c:if>
+            <c:if test="${param.mensaje_registro == 'exitoso'}"><div class="alert alert-success">¡Registro exitoso! Por favor, inicia sesión.</div></c:if>
 
             <form action="${pageContext.request.contextPath}/usuario" method="post">
                 <input type="hidden" name="accion" value="login">
@@ -26,17 +19,19 @@
                 </div>
                 <div class="mb-4">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="passwordLogin" name="password" required>
+                        <span class="input-group-text">
+                            <i class="bi bi-eye-slash" id="toggleIconLogin" onclick="togglePasswordVisibility('passwordLogin', 'toggleIconLogin')" style="cursor: pointer;"></i>
+                        </span>
+                    </div>
                 </div>
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary btn-lg">Entrar</button>
-                </div>
+                <div class="d-grid"><button type="submit" class="btn btn-primary btn-lg">Entrar</button></div>
             </form>
-            <div class="text-center mt-4">
-                <p class="mb-0">¿No tienes una cuenta? <a href="${pageContext.request.contextPath}/registro.jsp">Regístrate aquí</a></p>
-            </div>
+            <div class="text-center mt-4"><p class="mb-0">¿No tienes una cuenta? <a href="registro.jsp">Regístrate aquí</a></p></div>
         </div>
     </div>
 </div>
 
 <jsp:include page="/componentes/footer.jsp" />
+<jsp:include page="/componentes/password_toggle_script.jsp" />
