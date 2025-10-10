@@ -8,13 +8,11 @@ public class PedidoItem {
     private int cantidad;
     private double precioUnitario;
 
-    // Opcional: para cargar la información del producto asociado
     private Producto producto;
 
     public PedidoItem() {
     }
 
-    // Getters y Setters
     public int getId() {
         return id;
     }

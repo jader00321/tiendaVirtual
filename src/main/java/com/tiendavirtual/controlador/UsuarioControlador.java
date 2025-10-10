@@ -55,14 +55,19 @@ public class UsuarioControlador extends HttpServlet {
         }
     }
 
-    private void login(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException, ClassNotFoundException {
+    private void login(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException, ClassNotFoundException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-
         Usuario usuario = usuarioDAO.buscarPorEmail(email);
 
         if (usuario != null && usuario.getPassword().equals(password)) {
+            // --- NUEVA VALIDACIÓN DE ESTADO ---
+            if (!usuario.isActivo()) {
+                request.setAttribute("error", "Su cuenta ha sido desactivada. Por favor, contacte al administrador.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+                return;
+            }
+        
             HttpSession session = request.getSession();
             session.setAttribute("usuario", usuario);
             response.sendRedirect("index");
@@ -71,7 +76,6 @@ public class UsuarioControlador extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
-
     private void registrar(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ClassNotFoundException {
         String nombre = request.getParameter("nombre");
